@@ -5,8 +5,10 @@ import os
 
 def speller():
     # [START speller]
-    from azure.core.credentials import AzureKeyCredential
-    from azure.search.documents import SearchClient
+#    from azure.core.credentials import AzureKeyCredential
+#    from azure.search.documents import SearchClient
+    import AzureKeyCredential
+    import SearchClient
 
     service_endpoint = "https://ken-cog-search-svc.search.windows.net"
     index_name = "sharepoint-index"
