@@ -35,3 +35,43 @@ def hello(request):
             return render(request, 'hello_azure/hello.html', context)
     else:
         return redirect('index')
+
+def semantic_ranking():
+    # [START semantic_ranking]
+    from azure.core.credentials import AzureKeyCredential
+    from azure.search.documents import SearchClient
+
+    service_endpoint = "https://ken-cog-search-svc.search.windows.net"
+    index_name = "sharepoint-index"
+    key = "quRm9N9F4y4vGhgZBFvNtRs86VqLugIBVVeyC0drYaAzSeDm86cn"
+
+    credential = AzureKeyCredential(key)
+    client = SearchClient(endpoint=service_endpoint, index_name=index_name, credential=credential)
+    results = list(
+        client.search(
+            search_text="How to add DIDs to a SIP Trunk?",
+            query_type="semantic",
+            semantic_configuration_name="ken-semantic-config",
+            query_caption="extractive",
+        )
+    )
+
+    for result in results:
+        print(result["@search.reranker_score"])
+
+        captions = result["@search.captions"]
+        if captions:
+            caption = captions[0]
+            if caption.highlights:
+                print(f"Caption: {caption.highlights}\n")
+            else:
+                print(f"Caption: {caption.text}\n")
+
+  #  for result in results:
+  #      print("{}\n{}\n)".format(result["id"], result["content"]))
+    # [END semantic_ranking]
+
+
+if __name__ == "__main__":
+    speller()
+    semantic_ranking()
