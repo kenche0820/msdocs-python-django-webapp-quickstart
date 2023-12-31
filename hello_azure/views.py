@@ -25,6 +25,9 @@ def index(request):
 def hello(request):
     if request.method == 'POST':
         name = request.POST.get('name')
+
+        speller()
+        semantic_ranking()
         
         if name is None or name == '':
             print("Request for hello page received with no name or blank name -- redirecting")
