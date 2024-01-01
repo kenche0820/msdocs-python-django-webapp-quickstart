@@ -76,5 +76,4 @@ def semantic_ranking():
 
 
 
-speller()
-semantic_ranking()
+
