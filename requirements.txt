@@ -1,4 +1,2 @@
 Django
 whitenoise
-azure.core.credentials
-azure.search.documents
