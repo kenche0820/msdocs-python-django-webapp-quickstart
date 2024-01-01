@@ -75,6 +75,6 @@ def semantic_ranking():
     # [END semantic_ranking]
 
 
-if __name__ == "__main__":
-    speller()
-    semantic_ranking()
+
+speller()
+semantic_ranking()
