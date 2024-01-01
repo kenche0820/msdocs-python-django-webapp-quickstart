@@ -40,7 +40,7 @@ def hello(request):
         client = SearchClient(endpoint=service_endpoint, index_name=index_name, credential=credential)
         results = list(
             client.search(
-                search_text="How to add DIDs to a SIP Trunk?",
+                search_text=name,
                 query_type="semantic",
                 semantic_configuration_name="ken-semantic-config",
                 query_caption="extractive",
