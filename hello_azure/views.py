@@ -47,16 +47,16 @@ def hello(request):
             )
         )
 
-        for result in results:
-            print(result["@search.reranker_score"])
+        result = results[0]
+        print(result["@search.reranker_score"])
 
-            captions = result["@search.captions"]
-            if captions:
-                caption = captions[0]
-                if caption.highlights:
-                    print(f"Caption: {caption.highlights}\n")
-                else:
-                    print(f"Caption: {caption.text}\n")
+        captions = result["@search.captions"]
+        if captions:
+            caption = captions[0]
+            if caption.highlights:
+                print(f"Caption: {caption.highlights}\n")
+            else:
+                print(f"Caption: {caption.text}\n")
 
     #  for result in results:
     #      print("{}\n{}\n)".format(result["id"], result["content"]))
