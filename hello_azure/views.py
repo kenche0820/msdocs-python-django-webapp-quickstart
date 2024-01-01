@@ -67,8 +67,8 @@ def hello(request):
             print("Request for hello page received with no name or blank name -- redirecting")
             return redirect('index')
         else:
-            print("Request for hello page received with name=%s" % name)
-            context = {'name': name }
+            print("Request for hello page received with name=%s" % caption.text)
+            context = {'name': caption.text }
             return render(request, 'hello_azure/hello.html', context)
     else:
         return redirect('index')
