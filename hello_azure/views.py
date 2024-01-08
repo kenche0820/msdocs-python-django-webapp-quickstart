@@ -55,7 +55,7 @@ def hello(request):
                 print(f"Caption: {caption.text}\n")
                 logging.error(f"Caption: {caption.text}\n")    
 
-        filesNames = ""
+        fileNames = ""
         for result in results:
             print("{}\n{}\n)".format(result["id"], result["content"]))  
             fileNames = fileNames + "<P>" + result["metadata_spo_item_name"] + "</P>"
