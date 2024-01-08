@@ -41,10 +41,10 @@ def hello(request):
             )
         )
 
-        result = results[0]
-        logging.error("Score: ", result["@search.reranker_score"])        
+        result = results[0]        
         print(result["@search.reranker_score"])
-
+        logging.error(result["@search.reranker_score"])
+        
         captions = result["@search.captions"]
         if captions:
             caption = captions[0]
@@ -56,7 +56,7 @@ def hello(request):
                 logging.error(f"Caption: {caption.text}\n")    
 
         for result in results:
-            print("{}\n{}\n)".format(result["id"], result["content"]))
+            print("{}\n{}\n)".format(result["id"], result["content"]))  
         # [END semantic_ranking]
 
         
@@ -65,6 +65,7 @@ def hello(request):
             return redirect('index')
         else:
             print("Request for hello page received with name=%s" % caption.text)
+            logging.error("Request for hello page received with name=%s" % caption.text)
             context = {'name': caption.text }
             return render(request, 'hello_azure/hello.html', context)
     else:
