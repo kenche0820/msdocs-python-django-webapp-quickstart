@@ -19,7 +19,7 @@ def hello(request):
         print('Kenneth checks search', end='\r', flush=True)
 
         logging.basicConfig(
-            level=logging.INFO,
+            level=logging.ERROR,
             format="%(asctime)s [%(levelname)s] %(message)s",
             handlers=[logging.FileHandler("debug.log"), logging.StreamHandler(sys.stdout)],
         )
@@ -27,7 +27,7 @@ def hello(request):
         logging.info("So should this")
         logging.warning("And this, too")
         logging.error("Testing non-ASCII character, Ø and ö")
-        sys.stdout.write("Hello")
+        sys.stdout.write("Hello Ken")
 
 
 
