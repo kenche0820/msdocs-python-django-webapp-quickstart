@@ -61,13 +61,19 @@ def hello(request):
             fileNames = fileNames + "<P>" + result["metadata_spo_item_name"] + "</P>"
         # [END semantic_ranking]
         logging.error(f"fileNames: {fileNames}\n")
+
+        from tabulate import tabulate
+        table = [['one','two','three'],['four','five','six'],['seven','eight','nine']]
+        myTable = tabulate(table, tablefmt='html')
+        logging.error(tabulate(table, tablefmt='html'))
+
         
         if name is None or name == '':
             print("Request for hello page received with no name or blank name -- redirecting")
             return redirect('index')
         else:
             print("Request for hello page received with name=%s" % caption.text)            
-            context = {'name': caption.text, 'file': fileNames }
+            context = {'name': caption.text, 'file': myTable }
             return render(request, 'hello_azure/hello.html', context)
     else:
         return redirect('index')
