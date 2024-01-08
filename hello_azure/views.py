@@ -57,15 +57,16 @@ def hello(request):
 
         for result in results:
             print("{}\n{}\n)".format(result["id"], result["content"]))  
+            fileNames = fileNames + "<P>" + result["metadata_spo_item_name"] + "</P>"
         # [END semantic_ranking]
-
+        logging.error(f"fileNames: {fileNames}\n")
         
         if name is None or name == '':
             print("Request for hello page received with no name or blank name -- redirecting")
             return redirect('index')
         else:
             print("Request for hello page received with name=%s" % caption.text)            
-            context = {'name': caption.text, 'file': result["metadata_spo_item_name"] }
+            context = {'name': caption.text, 'file': fileNames }
             return render(request, 'hello_azure/hello.html', context)
     else:
         return redirect('index')
