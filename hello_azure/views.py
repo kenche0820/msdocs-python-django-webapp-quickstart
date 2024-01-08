@@ -16,21 +16,13 @@ import sys
 def hello(request):
     if request.method == 'POST':
         name = request.POST.get('name')
-        print('Kenneth checks search', end='\r', flush=True)
-
+        
         logging.basicConfig(
             level=logging.ERROR,
             format="%(asctime)s [%(levelname)s] %(message)s",
             handlers=[logging.FileHandler("debug.log"), logging.StreamHandler(sys.stdout)],
         )
-        logging.debug("This message is skipped as a level is set as INFO")
-        logging.info("So should this")
-        logging.warning("And this, too")
-        logging.error("Testing non-ASCII character, Ø and ö")
-        sys.stdout.write("Hello Ken")
-
-
-
+        
         from azure.core.credentials import AzureKeyCredential
         from azure.search.documents import SearchClient
 
@@ -50,6 +42,7 @@ def hello(request):
         )
 
         result = results[0]
+        logging.error(result["@search.reranker_score"])        
         print(result["@search.reranker_score"])
 
         captions = result["@search.captions"]
