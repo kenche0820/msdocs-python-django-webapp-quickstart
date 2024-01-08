@@ -11,6 +11,8 @@ def index(request):
 def hello(request):
     if request.method == 'POST':
         name = request.POST.get('name')
+        sys.stdout.write("Kenneth checks request")
+        sys.stdout.flush()
 
         from azure.core.credentials import AzureKeyCredential
         from azure.search.documents import SearchClient
