@@ -50,10 +50,10 @@ def hello(request):
             caption = captions[0]
             if caption.highlights:
                 print(f"Caption: {caption.highlights}\n")
-                logging.error("Caption: {caption.highlights}\n")    
+                logging.error(f"Caption: {caption.highlights}\n")    
             else:
                 print(f"Caption: {caption.text}\n")
-                logging.error("Caption: {caption.text}\n")    
+                logging.error(f"Caption: {caption.text}\n")    
 
         for result in results:
             print("{}\n{}\n)".format(result["id"], result["content"]))
