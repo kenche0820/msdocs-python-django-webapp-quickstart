@@ -42,7 +42,7 @@ def hello(request):
         )
 
         result = results[0]
-        logging.error(result["@search.reranker_score"])        
+        logging.error("Score: ", result["@search.reranker_score"])        
         print(result["@search.reranker_score"])
 
         captions = result["@search.captions"]
@@ -50,8 +50,10 @@ def hello(request):
             caption = captions[0]
             if caption.highlights:
                 print(f"Caption: {caption.highlights}\n")
+                logging.error("Caption: {caption.highlights}\n")    
             else:
                 print(f"Caption: {caption.text}\n")
+                logging.error("Caption: {caption.text}\n")    
 
         for result in results:
             print("{}\n{}\n)".format(result["id"], result["content"]))
