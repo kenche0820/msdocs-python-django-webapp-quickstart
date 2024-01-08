@@ -65,7 +65,7 @@ def hello(request):
             return redirect('index')
         else:
             print("Request for hello page received with name=%s" % caption.text)            
-            context = {'name': caption.text, 'file': result["id"] }
+            context = {'name': caption.text, 'file': result["metadata_spo_item_name"] }
             return render(request, 'hello_azure/hello.html', context)
     else:
         return redirect('index')
