@@ -41,8 +41,8 @@ def hello(request):
             else:
                 print(f"Caption: {caption.text}\n")
 
-      for result in results:
-          print("{}\n{}\n)".format(result["id"], result["content"]))
+        for result in results:
+            print("{}\n{}\n)".format(result["id"], result["content"]))
         # [END semantic_ranking]
 
         
