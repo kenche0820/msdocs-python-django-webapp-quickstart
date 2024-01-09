@@ -57,26 +57,12 @@ def hello(request):
         fileNames = ""
         for result in results:
             print("{}\n{}\n)".format(result["id"], result["content"]))  
-            fileNames = fileNames + "<P>" + result["metadata_spo_item_name"] + "</P>"
+            fileNames = fileNames + result["metadata_spo_item_name"] + "\n"
         
         logging.error(f"fileNames: {fileNames}\n")
 
         
-        print('Content-type: text/html\n')
 
-        table = []
-        table.append("<table>\n")
-        for result in results:
-            table.append("\t<tr>\n")
-            td = []
-            td.append("<td>{result['metadata_spo_item_name']}</td>")
-            table.append("\t\t"+"".join(td))
-            table.append("\n\t</tr>\n")
-
-        table.append("</table>")
-
-        print("".join(table))
-        logging.error(table)
 
         # [END semantic_ranking]        
         if name is None or name == '':
@@ -84,7 +70,7 @@ def hello(request):
             return redirect('index')
         else:
             print("Request for hello page received with name=%s" % caption.text)            
-            context = {'name': caption.text, 'file': table }
+            context = {'name': caption.text, 'file': fileNames }
             return render(request, 'hello_azure/hello.html', context)
     else:
         return redirect('index')
