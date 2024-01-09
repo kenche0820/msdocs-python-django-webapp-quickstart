@@ -11,7 +11,6 @@ def index(request):
 import logging
 import sys
 
-
 @csrf_exempt
 def hello(request):
     if request.method == 'POST':
@@ -59,15 +58,27 @@ def hello(request):
         for result in results:
             print("{}\n{}\n)".format(result["id"], result["content"]))  
             fileNames = fileNames + "<P>" + result["metadata_spo_item_name"] + "</P>"
-        # [END semantic_ranking]
+        
         logging.error(f"fileNames: {fileNames}\n")
 
-        from tabulate import tabulate
-        table = [['one','two','three'],['four','five','six'],['seven','eight','nine']]
-        myTable = tabulate(table, tablefmt='html')
-        logging.error(tabulate(table, tablefmt='html'))
-
         
+        print('Content-type: text/html\n')
+
+        table = []
+        table.append("<table>\n")
+        for result in results:
+            table.append("\t<tr>\n")
+            td = []
+            td.append("<td>{result['metadata_spo_item_name']}</td>".format(result))
+            table.append("\t\t"+"".join(td))
+            table.append("\n\t</tr>\n")
+
+        table.append("</table>")
+
+        print("".join(table))
+        logging.error(table)
+
+        # [END semantic_ranking]        
         if name is None or name == '':
             print("Request for hello page received with no name or blank name -- redirecting")
             return redirect('index')
