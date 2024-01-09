@@ -69,7 +69,7 @@ def hello(request):
         for result in results:
             table.append("\t<tr>\n")
             td = []
-            td.append("<td>{result['metadata_spo_item_name']}</td>".format(result))
+            td.append("<td>{result['metadata_spo_item_name']}</td>")
             table.append("\t\t"+"".join(td))
             table.append("\n\t</tr>\n")
 
