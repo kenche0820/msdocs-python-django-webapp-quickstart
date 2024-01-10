@@ -6,9 +6,6 @@ import os
 import logging
 import sys
 
-import dominate
-from dominate.tags import *
-
 def index(request):
     logging.error('Request for index page received')
     return render(request, 'hello_azure/index.html')
@@ -63,22 +60,7 @@ def hello(request):
         
         #logging.error(f"fileNames: {fileNames}\n")        
 
-        doc = dominate.document(title='Dominate your HTML')
 
-        with doc.head:
-            link(rel='stylesheet', href='style.css')
-            script(type='text/javascript', src='script.js')
-
-        with doc:
-            with div(id='header').add(ol()):
-                for i in ['home', 'about', 'contact']:
-                    li(a(i.title(), href='/%s.html' % i))
-
-            with div():
-                attr(cls='body')
-                p('Lorem ipsum..')
-
-        print(doc)
 
         # [END semantic_ranking]        
         if name is None or name == '':
