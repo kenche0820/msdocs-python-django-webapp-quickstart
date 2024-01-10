@@ -13,7 +13,7 @@ def index(request):
 @csrf_exempt
 def hello(request):
     if request.method == 'POST':
-        query = request.POST.get('query')
+        name = request.POST.get('name')
         
         logging.basicConfig(
             level=logging.ERROR,
@@ -32,7 +32,7 @@ def hello(request):
         client = SearchClient(endpoint=service_endpoint, index_name=index_name, credential=credential)
         results = list(
             client.search(
-                search_text=query,
+                search_text=name,
                 query_type="semantic",
                 semantic_configuration_name="ken-semantic-config",
                 query_caption="extractive",
@@ -78,11 +78,11 @@ def hello(request):
         print(doc)'''
 
         # [END semantic_ranking]        
-        if query is None or query == '':
+        if name is None or name == '':
             logging.error("Request for hello page received with no query or blank nquery -- redirecting")
             return redirect('index')
         else:
-            logging.error("Request for hello page received with query=%s" % caption.text)            
+            logging.error("Request for hello page received with name=%s" % caption.text)            
             context = {'answer': caption.text, 'file': fileNames, 'results': results }
             return render(request, 'hello_azure/hello.html', context)
     else:
