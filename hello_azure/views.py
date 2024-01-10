@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import os
-import dominate
-from dominate.tags import *
+
 import logging
 import sys
 
@@ -60,7 +59,7 @@ def hello(request):
             fileNames = fileNames + result["metadata_spo_item_name"] + "\n"
         
         #logging.error(f"fileNames: {fileNames}\n")        
-
+'''
         doc = dominate.document(title='Dominate your HTML')
 
         with doc.head:
@@ -77,7 +76,7 @@ def hello(request):
                 p('Lorem ipsum..')
 
         print(doc)
-
+'''
         # [END semantic_ranking]        
         if query is None or query == '':
             print("Request for hello page received with no query or blank nquery -- redirecting")
