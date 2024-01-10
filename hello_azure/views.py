@@ -59,8 +59,8 @@ def hello(request):
             fileNames = fileNames + result["metadata_spo_item_name"] + "\n"
         
         #logging.error(f"fileNames: {fileNames}\n")        
-'''
-        doc = dominate.document(title='Dominate your HTML')
+
+        '''doc = dominate.document(title='Dominate your HTML')
 
         with doc.head:
             link(rel='stylesheet', href='style.css')
@@ -75,8 +75,8 @@ def hello(request):
                 attr(cls='body')
                 p('Lorem ipsum..')
 
-        print(doc)
-'''
+        print(doc)'''
+
         # [END semantic_ranking]        
         if query is None or query == '':
             print("Request for hello page received with no query or blank nquery -- redirecting")
