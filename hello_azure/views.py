@@ -275,17 +275,7 @@ def hello(request):
         font-weight: bold;
     }
     """
-    table1 = SimpleTable([['Hello,', 'world!'], ['How', 'are', 'you?']],
-            header_row=['Header1', 'Header2', 'Header3'],
-            css_class='mytable')
-    table2 = SimpleTable([['Testing', 'this'], ['table', 'here']],
-            css_class='mytable')
 
-    page = HTMLPage()
-    page.add_table(table1)
-    page.add_table(table2)
-    page.css = css
-    page.save("test.html")
 
 
 
@@ -332,12 +322,25 @@ def hello(request):
                 logging.error(f"Caption: {caption.text}\n")    
 
         fileNames = ""
+        i = 0
         for result in results:
-            print("{}\n{}\n)".format(result["id"], result["content"]))  
             fileNames = fileNames + result["metadata_spo_item_name"] + "\n"
+            myRow[i] = result["metadata_spo_item_name"]
+            i = i + 1
         
         logging.error(f"fileNames: {fileNames}\n")        
 
+        table1 = SimpleTable([['Hello,', 'world!'], ['How', 'are', 'you?']],
+                header_row=['Header1', 'Header2', 'Header3'],
+                css_class='mytable')
+        table2 = SimpleTable(myRow),
+                css_class='mytable')
+
+        page = HTMLPage()
+        page.add_table(table1)
+        page.add_table(table2)
+        page.css = css
+        page.save("test.html")
 
 
         # [END semantic_ranking]        
