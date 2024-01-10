@@ -214,6 +214,7 @@ def hello(request):
             with codecs.open(filename, 'w', self.encoding) as outfile:
                 for line in str(self):
                     outfile.write(line)
+                    logging.error(line)
 
         def add_table(self, table):
             """Add a SimpleTable to the page list of tables"""
