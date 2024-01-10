@@ -2,14 +2,14 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import os
+import dominate
+from dominate.tags import *
+import logging
+import sys
 
 def index(request):
     print('Request for index page received')
     return render(request, 'hello_azure/index.html')
-
-
-import logging
-import sys
 
 @csrf_exempt
 def hello(request):
@@ -59,10 +59,7 @@ def hello(request):
             print("{}\n{}\n)".format(result["id"], result["content"]))  
             fileNames = fileNames + result["metadata_spo_item_name"] + "\n"
         
-        #logging.error(f"fileNames: {fileNames}\n")
-
-        import dominate
-        from dominate.tags import *
+        #logging.error(f"fileNames: {fileNames}\n")        
 
         doc = dominate.document(title='Dominate your HTML')
 
