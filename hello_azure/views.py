@@ -14,7 +14,7 @@ import sys
 @csrf_exempt
 def hello(request):
     if request.method == 'POST':
-        name = request.POST.get('name')
+        name = request.POST.get('query')
         
         logging.basicConfig(
             level=logging.ERROR,
@@ -59,15 +59,35 @@ def hello(request):
             print("{}\n{}\n)".format(result["id"], result["content"]))  
             fileNames = fileNames + result["metadata_spo_item_name"] + "\n"
         
-        logging.error(f"fileNames: {fileNames}\n")
+        #logging.error(f"fileNames: {fileNames}\n")
+
+        import dominate
+        from dominate.tags import *
+
+        doc = dominate.document(title='Dominate your HTML')
+
+        with doc.head:
+            link(rel='stylesheet', href='style.css')
+            script(type='text/javascript', src='script.js')
+
+        with doc:
+            with div(id='header').add(ol()):
+                for i in ['home', 'about', 'contact']:
+                    li(a(i.title(), href='/%s.html' % i))
+
+            with div():
+                attr(cls='body')
+                p('Lorem ipsum..')
+
+        print(doc)
 
         # [END semantic_ranking]        
-        if name is None or name == '':
-            print("Request for hello page received with no name or blank name -- redirecting")
+        if query is None or query == '':
+            print("Request for hello page received with no query or blank nquery -- redirecting")
             return redirect('index')
         else:
-            print("Request for hello page received with name=%s" % caption.text)            
-            context = {'name': caption.text, 'file': fileNames, 'results': results }
+            print("Request for hello page received with query=%s" % caption.text)            
+            context = {'answer': caption.text, 'file': fileNames, 'results': results }
             return render(request, 'hello_azure/hello.html', context)
     else:
         return redirect('index')
