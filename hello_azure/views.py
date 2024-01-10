@@ -323,13 +323,11 @@ def hello(request):
 
         fileNames = ""
         i = 0
-        myRow = []
-        for result in results:
-            fileNames = fileNames + result["metadata_spo_item_name"] + "\n"
-            myRow[i] = result["metadata_spo_item_name"]
-            myRow[i].append(result["@search.reranker_score"])            
-            i = i + 1
         
+        for result in results:
+            fileNames = fileNames + result["metadata_spo_item_name"] + "|" + result["@search.reranker_score"] + ","
+                        
+        myRow = fileNames.split(",")
         logging.error(f"fileNames: {fileNames}\n")        
 
         table1 = SimpleTable([['Hello,', 'world!'], ['How', 'are', 'you?']],
