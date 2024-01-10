@@ -14,9 +14,19 @@
             <P>{{name}}</P>
             <P><a href="{% url 'index' %}" class="btn btn-primary btn-lg px-4 gap-3">Back home</a></P>
             <p class="fs-5">
-                {{results}}
+                {{file}}
             </p>       
-
+            <table>
+              <%
+              for result in results:
+                %>
+                <tr>
+                  <th>File Name</th>
+                  <td><%= result["metadata_spo_item_name"] %></td>
+                </tr>
+                <%
+              %>
+            </table>
          
           </div>
      </main>      
