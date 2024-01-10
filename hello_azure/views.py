@@ -7,7 +7,7 @@ import logging
 import sys
 
 def index(request):
-    print('Request for index page received')
+    logging.error('Request for index page received')
     return render(request, 'hello_azure/index.html')
 
 @csrf_exempt
@@ -79,10 +79,10 @@ def hello(request):
 
         # [END semantic_ranking]        
         if query is None or query == '':
-            print("Request for hello page received with no query or blank nquery -- redirecting")
+            logging.error("Request for hello page received with no query or blank nquery -- redirecting")
             return redirect('index')
         else:
-            print("Request for hello page received with query=%s" % caption.text)            
+            logging.error("Request for hello page received with query=%s" % caption.text)            
             context = {'answer': caption.text, 'file': fileNames, 'results': results }
             return render(request, 'hello_azure/hello.html', context)
     else:
