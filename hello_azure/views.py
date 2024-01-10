@@ -238,56 +238,54 @@ def hello(request):
         return [data[num_cols*i:num_cols*i + num_cols] for i in range(num_iterations)]
 
 
-    ### Example usage ###
-    if __name__ == "__main__":
-        css = """
-        table.mytable {
-            font-family: times;
-            font-size:12px;
-            color:#000000;
-            border-width: 1px;
-            border-color: #eeeeee;
-            border-collapse: collapse;
-            background-color: #ffffff;
-            width=100%;
-            max-width:550px;
-            table-layout:fixed;
-        }
-        table.mytable th {
-            border-width: 1px;
-            padding: 8px;
-            border-style: solid;
-            border-color: #eeeeee;
-            background-color: #e6eed6;
-            color:#000000;
-        }
-        table.mytable td {
-            border-width: 1px;
-            padding: 8px;
-            border-style: solid;
-            border-color: #eeeeee;
-        }
-        #code {
-            display:inline;
-            font-family: courier;
-            color: #3d9400;
-        }
-        #string {
-            display:inline;
-            font-weight: bold;
-        }
-        """
-        table1 = SimpleTable([['Hello,', 'world!'], ['How', 'are', 'you?']],
-                header_row=['Header1', 'Header2', 'Header3'],
-                css_class='mytable')
-        table2 = SimpleTable([['Testing', 'this'], ['table', 'here']],
-                css_class='mytable')
+    css = """
+    table.mytable {
+        font-family: times;
+        font-size:12px;
+        color:#000000;
+        border-width: 1px;
+        border-color: #eeeeee;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        width=100%;
+        max-width:550px;
+        table-layout:fixed;
+    }
+    table.mytable th {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #eeeeee;
+        background-color: #e6eed6;
+        color:#000000;
+    }
+    table.mytable td {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #eeeeee;
+    }
+    #code {
+        display:inline;
+        font-family: courier;
+        color: #3d9400;
+    }
+    #string {
+        display:inline;
+        font-weight: bold;
+    }
+    """
+    table1 = SimpleTable([['Hello,', 'world!'], ['How', 'are', 'you?']],
+            header_row=['Header1', 'Header2', 'Header3'],
+            css_class='mytable')
+    table2 = SimpleTable([['Testing', 'this'], ['table', 'here']],
+            css_class='mytable')
 
-        page = HTMLPage()
-        page.add_table(table1)
-        page.add_table(table2)
-        page.css = css
-        page.save("test.html")
+    page = HTMLPage()
+    page.add_table(table1)
+    page.add_table(table2)
+    page.css = css
+    page.save("test.html")
 
 
 
@@ -338,7 +336,7 @@ def hello(request):
             print("{}\n{}\n)".format(result["id"], result["content"]))  
             fileNames = fileNames + result["metadata_spo_item_name"] + "\n"
         
-        #logging.error(f"fileNames: {fileNames}\n")        
+        logging.error(f"fileNames: {fileNames}\n")        
 
 
 
