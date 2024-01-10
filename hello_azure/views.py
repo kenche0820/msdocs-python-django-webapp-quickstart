@@ -323,9 +323,10 @@ def hello(request):
 
         fileNames = ""
         i = 0
+        myRow = []
         for result in results:
             fileNames = fileNames + result["metadata_spo_item_name"] + "\n"
-            myRow[i] = result["metadata_spo_item_name"]
+            myRow.append(result["metadata_spo_item_name"])
             i = i + 1
         
         logging.error(f"fileNames: {fileNames}\n")        
