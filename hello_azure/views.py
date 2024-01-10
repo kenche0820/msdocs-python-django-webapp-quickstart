@@ -13,7 +13,7 @@ def index(request):
 @csrf_exempt
 def hello(request):
     if request.method == 'POST':
-        name = request.POST.get('query')
+        query = request.POST.get('query')
         
         logging.basicConfig(
             level=logging.ERROR,
@@ -32,7 +32,7 @@ def hello(request):
         client = SearchClient(endpoint=service_endpoint, index_name=index_name, credential=credential)
         results = list(
             client.search(
-                search_text=name,
+                search_text=query,
                 query_type="semantic",
                 semantic_configuration_name="ken-semantic-config",
                 query_caption="extractive",
