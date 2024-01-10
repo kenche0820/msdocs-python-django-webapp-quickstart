@@ -333,7 +333,7 @@ def hello(request):
         table1 = SimpleTable([['Hello,', 'world!'], ['How', 'are', 'you?']],
                 header_row=['Header1', 'Header2', 'Header3'],
                 css_class='mytable')
-        table2 = SimpleTable(myRow),
+        table2 = SimpleTable(myRow,
                 css_class='mytable')
 
         page = HTMLPage()
