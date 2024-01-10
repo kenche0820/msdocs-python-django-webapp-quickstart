@@ -326,7 +326,8 @@ def hello(request):
         myRow = []
         for result in results:
             fileNames = fileNames + result["metadata_spo_item_name"] + "\n"
-            myRow.append(result["metadata_spo_item_name"])
+            myRow[i].append(result["metadata_spo_item_name"])
+            myRow[i].append(result["@search.reranker_score"])            
             i = i + 1
         
         logging.error(f"fileNames: {fileNames}\n")        
