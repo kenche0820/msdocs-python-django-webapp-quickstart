@@ -325,7 +325,7 @@ def hello(request):
         i = 0
         
         for result in results:
-            fileNames = fileNames + result["metadata_spo_item_name"] + "|" + result["@search.reranker_score"] + ","
+            fileNames = fileNames + result["metadata_spo_item_name"] + "|" + str(round(result["@search.reranker_score"],1)) + ","
                         
         myRow = fileNames.split(",")
         logging.error(f"fileNames: {fileNames}\n")        
