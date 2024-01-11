@@ -330,17 +330,21 @@ def hello(request):
         myRow = fileNames.split(",")
         logging.error(f"fileNames: {fileNames}\n")        
 
-        table1 = SimpleTable([['Hello,', 'world!'], ['How', 'are', 'you?']],
-                header_row=['Header1', 'Header2', 'Header3'],
-                css_class='mytable')
-        table2 = SimpleTable(myRow,
-                css_class='mytable')
+        #table1 = SimpleTable([['Hello,', 'world!'], ['How', 'are', 'you?']],
+        #        header_row=['Header1', 'Header2', 'Header3'],
+        #        css_class='mytable')
+        #table2 = SimpleTable(myRow,
+        #        css_class='mytable')
 
-        page = HTMLPage()
-        page.add_table(table1)
-        page.add_table(table2)
-        page.css = css
-        page.save("test.html")
+        #page = HTMLPage()
+        #page.add_table(table1)
+        #page.add_table(table2)
+        #page.css = css
+        #page.save("test.html")
+
+        with codecs.open("test.html", 'w', encoding="utf-8") as outfile:            
+            outfile.write(fileNames)
+                    
 
 
         # [END semantic_ranking]        
