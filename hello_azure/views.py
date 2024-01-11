@@ -325,7 +325,7 @@ def hello(request):
         tempOutput = "" 
         i = 0        
         for result in results:
-            tempContent = result["content"]
+            tempContent = result["content"]:1000            
             tempOutput = tempOutput + result["metadata_spo_item_name"] + "|" + str(round(result["@search.reranker_score"],2)) + "|" + tempContent + ","
                         
         myRow = tempOutput.split(",")
@@ -345,8 +345,8 @@ def hello(request):
 
         with codecs.open("test.html", 'w', encoding="utf-8") as outfile:            
             outfile.write("<P>" + myCaption + "</P>")
-            outfile.write("<P><a href=\"{% url 'index' %}\" class='btn btn-primary btn-lg px-4 gap-3'>Back home</a></P>")            
-            outfile.write("<P>" + tempOutput + "</P>")
+            outfile.write("<P><a href='http://localhost:8000' class='btn btn-primary btn-lg px-4 gap-3'>Back home</a></P>")            
+            outfile.write("<P>" + myRow + "</P>")
                     
 
 
