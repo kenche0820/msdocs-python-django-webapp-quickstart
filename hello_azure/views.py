@@ -325,7 +325,8 @@ def hello(request):
         tempOutput = "" 
         i = 0        
         for result in results:
-            tempContent = result["content"]:1000            
+            tempContent = result["content"]    
+            tempContent = tempContent[0:1000]        
             tempOutput = tempOutput + result["metadata_spo_item_name"] + "|" + str(round(result["@search.reranker_score"],2)) + "|" + tempContent + ","
                         
         myRow = tempOutput.split(",")
