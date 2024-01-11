@@ -308,6 +308,7 @@ def hello(request):
         )
 
         result = results[0]        
+        
         print(result["@search.reranker_score"])
         logging.error(result["@search.reranker_score"])
         
@@ -316,19 +317,18 @@ def hello(request):
             caption = captions[0]
             if caption.highlights:
                 print(f"Caption: {caption.highlights}\n")
-                logging.error(f"Caption: {caption.highlights}\n")    
+                myCaption = caption.highlights
             else:
                 print(f"Caption: {caption.text}\n")
-                logging.error(f"Caption: {caption.text}\n")    
+                myCaption = caption.text
 
-        fileNames = ""
-        i = 0
-        
+        tempOutput = "" 
+        i = 0        
         for result in results:
-            fileNames = fileNames + result["metadata_spo_item_name"] + "|" + str(round(result["@search.reranker_score"],1)) + ","
+            tempOutput = tempOutput + result["metadata_spo_item_name"] + "|" + str(round(result["@search.reranker_score"],2)) + ","
                         
-        myRow = fileNames.split(",")
-        logging.error(f"fileNames: {fileNames}\n")        
+        myRow = tempOutput.split(",")
+             
 
         #table1 = SimpleTable([['Hello,', 'world!'], ['How', 'are', 'you?']],
         #        header_row=['Header1', 'Header2', 'Header3'],
@@ -343,7 +343,8 @@ def hello(request):
         #page.save("test.html")
 
         with codecs.open("test.html", 'w', encoding="utf-8") as outfile:            
-            outfile.write(fileNames)
+            outfile.write(myCaption)
+            outfile.write(tempOutput)
                     
 
 
