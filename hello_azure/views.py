@@ -354,7 +354,7 @@ def hello(request):
             return redirect('index')
         else:
             logging.error("Request for hello page received with name=%s" % caption.text)            
-            context = {'answer': caption.text, 'file': fileNames, 'results': results }
+            context = {'answer': caption.text }
             return render(request, 'hello_azure/hello.html', context)
     else:
         return redirect('index')
