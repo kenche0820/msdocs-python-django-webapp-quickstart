@@ -331,7 +331,7 @@ def hello(request):
                         
         myRows = tempOutput.split(",")      
 
-        myTable = "table, th, td {border: 1px solid black;border-collapse: collapse;}"
+        myTable = "<style>table, th, td {border: 1px solid black;border-collapse: collapse;}</style>"
         myTable += "<TABLE><TH>File Name</TH><TH>Score</TH><TH>Contents</TH>"
         for myRow in myRows:
             myTable += "<TR>"  
