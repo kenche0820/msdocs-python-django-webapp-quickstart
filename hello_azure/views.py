@@ -327,13 +327,13 @@ def hello(request):
         for result in results:
             tempContent = result["content"]    
             tempContent = tempContent[0:1000]        
-            tempOutput = tempOutput + result["metadata_spo_item_name"] + ";;" + str(round(result["@search.reranker_score"],2)) + ";;" + tempContent + ","
+            tempOutput = tempOutput + result["metadata_spo_item_name"] + ";;" + str(round(result["@search.reranker_score"],2)) + ";;" + tempContent + ",,"
                         
-        myRows = tempOutput.split(",")      
+        myRows = tempOutput.split(",,")      
 
-#        myTable = "<style>table, th, td {border: 1px solid black;border-collapse: collapse;}</style>"
-        
-        myTable = "<TABLE><TH>File Name</TH><TH>Score</TH><TH>Contents</TH>"
+        myTable = '<!doctype html><head><title>Azure Semantic Search</title><link rel="stylesheet" href="\'static/bootstrap/css/bootstrap.min.css\'"><link rel="icon"href="static/favicon.ico"></head>'
+        myTable += "<style>table, th, td {border: 1px solid black;border-collapse: collapse;}</style>"        
+        myTable += "<TABLE><TH>File Name</TH><TH>Score</TH><TH>Contents</TH>"
         for myRow in myRows:
             myTable += "<TR>"  
             myCells = myRow.split(";;")
