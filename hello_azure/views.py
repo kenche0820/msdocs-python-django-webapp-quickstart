@@ -307,7 +307,8 @@ def hello(request):
             )
         )
 
-        result = results[0]        
+        result = results[0]   
+        myLink = "<A href='" + "https://setelab.sharepoint.com/Shared%20Documents/Forms/AllItems.aspx?id=%2FShared%20Documents%2Fdocument%2F" + "'>" + result["metadata_spo_item_name"] + "&parent=%2FShared%20Documents%2Fdocument&p=true&ga=1</A>"          
         
         print(result["@search.reranker_score"])
         logging.error(result["@search.reranker_score"])
@@ -331,7 +332,7 @@ def hello(request):
                         
         myRows = tempOutput.split(",,")      
 
-        myTable = '<!doctype html><head><title>Azure Semantic Search</title><link rel="stylesheet" href="\'static/bootstrap/css/bootstrap.min.css\'"><link rel="icon"href="static/favicon.ico"></head>'
+        myTable = '<!doctype html><head><title>Azure Semantic Search</title><link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css"><link rel="icon"href="static/favicon.ico"></head>'
         myTable += "<style>table, th, td {border: 1px solid black;border-collapse: collapse;}</style>"        
         myTable += "<TABLE><TH>File Name</TH><TH>Score</TH><TH>Contents</TH>"
         for myRow in myRows:
@@ -357,6 +358,7 @@ def hello(request):
             outfile.write("<style>.aligncenter{text-align: center;}</style>")
             outfile.write('<P class="aligncenter"><img class="d-block mx-auto mb-4" src="static/images/azure-icon.svg" alt="Azure Logo" width="192" height="192"/></P>')
             outfile.write("<P>" + myCaption + "</P>")
+            outfile.write("<P>" + myLink + "</P>")
             outfile.write("<P><a href='http://localhost:8000' class='btn btn-primary btn-lg px-4 gap-3'>Back home</a></P>")            
             outfile.write("<P>" + myTable + "</P>")
                     
