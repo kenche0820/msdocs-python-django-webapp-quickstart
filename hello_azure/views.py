@@ -339,7 +339,7 @@ def hello(request):
             myTable += "<TR>"  
             myCells = myRow.split(";;")
             for myCell in myCells:
-                myTable += "<TD>" + myCell + "</TD>"  
+                myTable += "<TD><A href='https://setelab.sharepoint.com/Shared%20Documents/Forms/AllItems.aspx?id=%2FShared%20Documents%2Fdocument%2F" + myCell + "&parent=%2FShared%20Documents%2Fdocument&p=true&ga=1'>" + myCell + "</A></TD>"                   
             myTable += "</TR>"    
 
         #table1 = SimpleTable([['Hello,', 'world!'], ['How', 'are', 'you?']],
@@ -354,7 +354,7 @@ def hello(request):
         #page.css = css
         #page.save("test.html")
 
-        with codecs.open("test.html", 'w', encoding="utf-8") as outfile:     
+        with codecs.open("templates\hello_azure\test.html", 'w', encoding="utf-8") as outfile:     
             outfile.write("<style>.aligncenter{text-align: center;}</style>")
             outfile.write('<div class="px-4 py-3 my-2 text-center">')
             outfile.write('<P class="aligncenter"><img class="d-block mx-auto mb-4" src="static/images/azure-icon.svg" alt="Azure Logo" width="192" height="192"/></P>')
@@ -374,6 +374,7 @@ def hello(request):
             logging.error("Request for hello page received with name=%s" % caption.text)            
             context = {'answer': caption.text }
             return render(request, 'hello_azure/hello.html', context)
+            #return render(request, 'hello_azure/hello.html', context)
     else:
         return redirect('index')
 
