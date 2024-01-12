@@ -338,8 +338,15 @@ def hello(request):
         for myRow in myRows:
             myTable += "<TR>"  
             myCells = myRow.split(";;")
-            for myCell in myCells:
-                myTable += "<TD><A href='https://setelab.sharepoint.com/Shared%20Documents/Forms/AllItems.aspx?id=%2FShared%20Documents%2Fdocument%2F" + myCell + "&parent=%2FShared%20Documents%2Fdocument&p=true&ga=1'>" + myCell + "</A></TD>"                   
+
+            for i in range(len(myCells)):
+                if i == 0:
+                    myTable += "<TD><A href='https://setelab.sharepoint.com/Shared%20Documents/Forms/AllItems.aspx?id=%2FShared%20Documents%2Fdocument%2F" + myCells[i] + "&parent=%2FShared%20Documents%2Fdocument&p=true&ga=1'>" + myCells[i] + "</A></TD>"                                       
+                else:
+                    myTable += "<TD>" + myCells[i] + "</TD>"
+
+            #for myCell in myCells:
+            #    myTable += "<TD><A href='https://setelab.sharepoint.com/Shared%20Documents/Forms/AllItems.aspx?id=%2FShared%20Documents%2Fdocument%2F" + myCell + "&parent=%2FShared%20Documents%2Fdocument&p=true&ga=1'>" + myCell + "</A></TD>"                   
             myTable += "</TR>"    
 
         #table1 = SimpleTable([['Hello,', 'world!'], ['How', 'are', 'you?']],
@@ -373,8 +380,8 @@ def hello(request):
         else:
             logging.error("Request for hello page received with name=%s" % caption.text)            
             context = {'answer': caption.text }
-            #return render(request, 'hello_azure/hello.html', context)
-            return render(request, 'hello_azure/test.html', context)
+            return render(request, 'hello_azure/hello.html', context)
+            #return render(request, 'hello_azure/test.html', context)
     else:
         return redirect('index')
 
