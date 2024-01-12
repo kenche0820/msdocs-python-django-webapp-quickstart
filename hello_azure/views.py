@@ -332,10 +332,10 @@ def hello(request):
         myRows = tempOutput.split(",")      
 
         myTable = "<TABLE>"
-        for myRow in myRows
+        for myRow in myRows:
             myTable += "<TR>"  
             myCells = myRow.split("|")
-            for myCell in myCells
+            for myCell in myCells:
                 myTable += "<TD>" + myCell + "</TD>"  
             myTable += "</TR>"    
 
