@@ -327,14 +327,15 @@ def hello(request):
         for result in results:
             tempContent = result["content"]    
             tempContent = tempContent[0:1000]        
-            tempOutput = tempOutput + result["metadata_spo_item_name"] + "|" + str(round(result["@search.reranker_score"],2)) + "|" + tempContent + ","
+            tempOutput = tempOutput + result["metadata_spo_item_name"] + ";" + str(round(result["@search.reranker_score"],2)) + ";" + tempContent + ","
                         
         myRows = tempOutput.split(",")      
 
-        myTable = "<TABLE>"
+        myTable = "table, th, td {border: 1px solid black;border-collapse: collapse;}"
+        myTable += "<TABLE><TH>File Name</TH><TH>Score</TH><TH>Contents</TH>"
         for myRow in myRows:
             myTable += "<TR>"  
-            myCells = myRow.split("|")
+            myCells = myRow.split(";")
             for myCell in myCells:
                 myTable += "<TD>" + myCell + "</TD>"  
             myTable += "</TR>"    
@@ -351,8 +352,9 @@ def hello(request):
         #page.css = css
         #page.save("test.html")
 
-        with codecs.open("test.html", 'w', encoding="utf-8") as outfile:      
-            outfile.write('<img class="d-block mx-auto mb-4" src="static/images/azure-icon.svg" alt="Azure Logo" width="192" height="192"/>')
+        with codecs.open("test.html", 'w', encoding="utf-8") as outfile:     
+            outfile.write("<style>.aligncenter{text-align: center;}</style>")
+            outfile.write('<P class="aligncenter"><img class="d-block mx-auto mb-4" src="static/images/azure-icon.svg" alt="Azure Logo" width="192" height="192"/></P>')
             outfile.write("<P>" + myCaption + "</P>")
             outfile.write("<P><a href='http://localhost:8000' class='btn btn-primary btn-lg px-4 gap-3'>Back home</a></P>")            
             outfile.write("<P>" + myTable + "</P>")
