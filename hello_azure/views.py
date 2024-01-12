@@ -329,8 +329,15 @@ def hello(request):
             tempContent = tempContent[0:1000]        
             tempOutput = tempOutput + result["metadata_spo_item_name"] + "|" + str(round(result["@search.reranker_score"],2)) + "|" + tempContent + ","
                         
-        myRows = tempOutput.split(",")
-             
+        myRows = tempOutput.split(",")      
+
+        myTable = "<TABLE>"
+        for myRow in myRows
+            myTable += "<TR>"  
+            myCells = myRow.split("|")
+            for myCell in myCells
+                myTable += "<TD>" + myCell + "</TD>"  
+            myTable += "</TR>"    
 
         #table1 = SimpleTable([['Hello,', 'world!'], ['How', 'are', 'you?']],
         #        header_row=['Header1', 'Header2', 'Header3'],
@@ -344,11 +351,11 @@ def hello(request):
         #page.css = css
         #page.save("test.html")
 
-        with codecs.open("test.html", 'w', encoding="utf-8") as outfile:            
+        with codecs.open("test.html", 'w', encoding="utf-8") as outfile:      
+            outfile.write('<img class="d-block mx-auto mb-4" src="static/images/azure-icon.svg" alt="Azure Logo" width="192" height="192"/>')
             outfile.write("<P>" + myCaption + "</P>")
             outfile.write("<P><a href='http://localhost:8000' class='btn btn-primary btn-lg px-4 gap-3'>Back home</a></P>")            
-            for myRow in myRows:
-                outfile.write("<P>" + myRow + "</P>")
+            outfile.write("<P>" + myTable + "</P>")
                     
 
 
