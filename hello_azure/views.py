@@ -359,7 +359,7 @@ def hello(request):
         #page.css = css
         #page.save("test.html")
 
-        with codecs.open("test.html", 'w', encoding="utf-8") as outfile:     
+        with codecs.open("hello_azure/templates/hello_azure/test.html", 'w', encoding="utf-8") as outfile:     
             outfile.write("<style>.aligncenter{text-align: center;}</style>")
             outfile.write('<div class="px-4 py-3 my-2 text-center">')
             outfile.write('<P class="aligncenter"><img class="d-block mx-auto mb-4" src="static/images/azure-icon.svg" alt="Azure Logo" width="192" height="192"/></P>')
