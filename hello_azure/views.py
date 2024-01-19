@@ -90,7 +90,7 @@ def hello(request):
         tempContent = ""
 
         for sentence in summarizer(parser.document, SENTENCES_COUNT):
-            print(sentence)
+            #print(sentence)
             tempContent += sentence
 
 
