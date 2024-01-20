@@ -74,8 +74,6 @@ def hello(request):
 
         LANGUAGE = "english"
         SENTENCES_COUNT = 10
-
-
         
         url = "https://en.wikipedia.org/wiki/Automatic_summarization"
         parser = HtmlParser.from_url(url, Tokenizer(LANGUAGE))
