@@ -1,6 +1,3 @@
-import torch                
-from transformers import AutoTokenizer, AutoModelWithLMHead
-
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -62,22 +59,7 @@ def hello(request):
                 myCaption = caption.text
 
 
-        tokenizer = AutoTokenizer.from_pretrained('t5-base')                        
-        model = AutoModelWithLMHead.from_pretrained('t5-base', return_dict=True)      
-        text = "Former American President Donald Trump has come up with an excuse for his threats not to help Europe in the event of war, reports Politico. During a meeting with European Commission President Ursula von der Leyen in 2020, Trump promised not to help Europe in the event of war."
 
-        inputs = tokenizer.encode("summarize: " + text,                  
-        return_tensors='pt',              
-        max_length=512,             
-        truncation=True)     
-
-        summary_ids = model.generate(inputs, max_length=150, min_length=80, length_penalty=5., num_beams=2)  
-
-        summary = tokenizer.decode(summary_ids[0])      
-
-
-
-        tempContent = summary
 
 
 
@@ -85,8 +67,8 @@ def hello(request):
         tempOutput = "" 
         i = 0        
         for result in results:
-            #tempContent = result["content"]    
-            #tempContent = tempContent[0:1000]        
+            tempContent = result["content"]    
+            tempContent = tempContent[0:1000]        
             tempOutput = tempOutput + result["metadata_spo_item_name"] + ";;" + str(round(result["@search.reranker_score"],2)) + ";;" + tempContent + ",,"
                         
         myRows = tempOutput.split(",,")      
