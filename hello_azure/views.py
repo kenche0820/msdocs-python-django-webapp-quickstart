@@ -1,6 +1,3 @@
-
-
-
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -61,19 +58,11 @@ def hello(request):
                 print(f"Caption: {caption.text}\n")
                 myCaption = caption.text
 
-
-
-
-
-
-
-
-
         tempOutput = "" 
         i = 0        
         for result in results:
-            #tempContent = result["content"]    
-            #tempContent = tempContent[0:1000]        
+            tempContent = result["content"]    
+            tempContent = tempContent[0:1000]        
             tempOutput = tempOutput + result["metadata_spo_item_name"] + ";;" + str(round(result["@search.reranker_score"],2)) + ";;" + tempContent + ",,"
                         
         myRows = tempOutput.split(",,")      
