@@ -1,3 +1,6 @@
+import torch     
+from transformers import AutoTokenizer, AutoModelWithLMHead           
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -59,7 +62,19 @@ def hello(request):
                 myCaption = caption.text
 
 
+        tokenizer = AutoTokenizer.from_pretrained('t5-base')                        
+        model = AutoModelWithLMHead.from_pretrained('t5-base', return_dict=True)  
 
+        text = "This is sample sentence.  This is another sample sentence."    
+
+        inputs = tokenizer.encode("summarize: " + text,                  
+        return_tensors='pt',              
+        max_length=512,             
+        truncation=True)     
+
+        summary_ids = model.generate(inputs, max_length=150, min_length=80, length_penalty=5., num_beams=2)  
+
+        summary = tokenizer.decode(summary_ids[0])  
 
 
 
