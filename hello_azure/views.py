@@ -1,6 +1,6 @@
-import nltk               
-from nltk.corpus import stopwords                       
-from nltk.tokenize import word_tokenize, sent_tokenize 
+from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
+from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
+from pysummarization.abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -63,43 +63,21 @@ def hello(request):
                 myCaption = caption.text
 
 
-        text = "This is a sentence.   This is another sentence."  
-        stopWords = set(stopwords.words("english"))              
-        words = word_tokenize(text)     
-        freqTable = dict()                 
-        for word in words:               
-            word = word.lower()                 
-            if word in stopWords:                 
-                continue                  
-            if word in freqTable:                       
-                freqTable[word] += 1            
-            else:          
-                freqTable[word] = 1     
-        sentences = sent_tokenize(text)                 
-        sentenceValue = dict()                     
+        document = "Natural language generation (NLG) is the natural language processing task of generating natural language from a machine representation system such as a knowledge base or a logical form. Psycholinguists prefer the term language production when such formal representations are interpreted as models for mental representations."
+        #And instantiate objects and call the method.
+        # Object of automatic summarization.
+        auto_abstractor = AutoAbstractor()
+        # Set tokenizer.
+        auto_abstractor.tokenizable_doc = SimpleTokenizer()
+        # Set delimiter for making a list of sentence.
+        auto_abstractor.delimiter_list = [".", "\n"]
+        # Object of abstracting and filtering document.
+        abstractable_doc = TopNRankAbstractor()
+        # Summarize document.
+        result_dict = auto_abstractor.summarize(document, abstractable_doc)
 
-        for sentence in sentences:               
-            for word, freq in freqTable.items():              
-                if word in sentence.lower():           
-                    if sentence in sentenceValue:                                 
-                        sentenceValue[sentence] += freq                       
-                    else:                       
-                        sentenceValue[sentence] = freq                    
-
-        sumValues = 0                        
-        for sentence in sentenceValue:              
-            sumValues += sentenceValue[sentence] 
-
-        average = int(sumValues / len(sentenceValue))   
-
-        summary = ''      
-
-        for sentence in sentences:               
-            if (sentence in sentenceValue) and (sentenceValue[sentence] > (1.2 * average)):                
-                summary += " " + sentence                  
-        print(summary)         
-
-
+        for sentence in result_dict["summarize_result"]:
+            print(sentence)
 
 
         tempOutput = "" 
