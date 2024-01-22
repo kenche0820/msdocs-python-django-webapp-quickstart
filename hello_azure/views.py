@@ -1,3 +1,6 @@
+import pandas as pd
+
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -57,6 +60,12 @@ def hello(request):
             else:
                 print(f"Caption: {caption.text}\n")
                 myCaption = caption.text
+
+
+
+
+
+                
 
         tempOutput = "" 
         i = 0        
