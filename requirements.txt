@@ -2,3 +2,4 @@ Django
 whitenoise
 azure-search-documents --pre
 python-dotenv
+--upgrade gensim

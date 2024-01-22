@@ -1,3 +1,8 @@
+from gensim.summarization.summarizer import summarize                  
+from gensim.summarization import keywords                 
+import wikipedia              
+import en_core_web_sm  
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -57,6 +62,20 @@ def hello(request):
             else:
                 print(f"Caption: {caption.text}\n")
                 myCaption = caption.text
+
+        wikisearch = wikipedia.page("https://en.wikipedia.org/wiki/Main_Page")             
+        wikicontent = wikisearch.content             
+        nlp = en_core_web_sm.load()            
+        doc = nlp(wikicontent)    
+        summ_per = summarize(wikicontent, ratio = "50")                  
+        print("Percent summary")            
+        print(summ_per) 
+        summ_words = summarize(wikicontent, word_count = "50")               
+        print("Word count summary")                
+        print(summ_words) 
+
+
+
 
         tempOutput = "" 
         i = 0        
