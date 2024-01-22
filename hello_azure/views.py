@@ -1,5 +1,5 @@
-from gensim.summarization.summarizer import summarize                  
-from gensim.summarization import keywords                 
+from gensim import summarize                  
+from gensim import keywords                 
 import wikipedia              
 import en_core_web_sm  
 
