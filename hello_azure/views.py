@@ -62,7 +62,7 @@ def hello(request):
                 print(f"Caption: {caption.text}\n")
                 myCaption = caption.text
 
-
+        os.environ["NLTK_DATA"] = "C:\Users\kenneth.cheung\AppData\Roaming\nltk_data"
         text = "This is a sentence.   This is another sentence."  
         stopWords = set(stopwords.words("english"))              
         words = word_tokenize(text)     
