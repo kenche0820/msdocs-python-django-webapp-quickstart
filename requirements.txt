@@ -4,3 +4,4 @@ azure-search-documents --pre
 python-dotenv
 nltk
 beautifulsoup4
+lxml
