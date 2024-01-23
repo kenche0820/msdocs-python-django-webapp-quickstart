@@ -104,7 +104,7 @@ def hello(request):
             summary = ''      
 
             for sentence in sentences:               
-                if (sentence in sentenceValue) and (sentenceValue[sentence] > (1.2 * average)):                
+                if (sentence in sentenceValue) and (sentenceValue[sentence] > (2 * average)):                
                     summary += " " + sentence                  
             print(summary)
 
