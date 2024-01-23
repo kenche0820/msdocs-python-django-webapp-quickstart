@@ -63,50 +63,54 @@ def hello(request):
                 myCaption = caption.text
 
         os.environ["NLTK_DATA"] = "C:\\Users\\kenneth.cheung\\AppData\\Roaming\\nltk_data"
-        text = "This is a sentence.   This is another sentence."  
-        stopWords = set(stopwords.words("english"))              
-        words = word_tokenize(text)     
-        freqTable = dict()                 
-        for word in words:               
-            word = word.lower()                 
-            if word in stopWords:                 
-                continue                  
-            if word in freqTable:                       
-                freqTable[word] += 1            
-            else:          
-                freqTable[word] = 1     
-        sentences = sent_tokenize(text)                 
-        sentenceValue = dict()                     
-
-        for sentence in sentences:               
-            for word, freq in freqTable.items():              
-                if word in sentence.lower():           
-                    if sentence in sentenceValue:                                 
-                        sentenceValue[sentence] += freq                       
-                    else:                       
-                        sentenceValue[sentence] = freq                    
-
-        sumValues = 0                        
-        for sentence in sentenceValue:              
-            sumValues += sentenceValue[sentence] 
-
-        average = int(sumValues / len(sentenceValue))   
-
-        summary = ''      
-
-        for sentence in sentences:               
-            if (sentence in sentenceValue) and (sentenceValue[sentence] > (1.2 * average)):                
-                summary += " " + sentence                  
-        print(summary)         
-
-
-
 
         tempOutput = "" 
         i = 0        
         for result in results:
-            tempContent = result["content"]    
-            tempContent = tempContent[0:1000]        
+            #tempContent = result["content"]    
+            #tempContent = tempContent[0:1000]  
+
+
+
+            text = result["content"]
+            stopWords = set(stopwords.words("english"))              
+            words = word_tokenize(text)     
+            freqTable = dict()                 
+            for word in words:               
+                word = word.lower()                 
+                if word in stopWords:                 
+                    continue                  
+                if word in freqTable:                       
+                    freqTable[word] += 1            
+                else:          
+                    freqTable[word] = 1     
+            sentences = sent_tokenize(text)                 
+            sentenceValue = dict()                     
+
+            for sentence in sentences:               
+                for word, freq in freqTable.items():              
+                    if word in sentence.lower():           
+                        if sentence in sentenceValue:                                 
+                            sentenceValue[sentence] += freq                       
+                        else:                       
+                            sentenceValue[sentence] = freq                    
+
+            sumValues = 0                        
+            for sentence in sentenceValue:              
+                sumValues += sentenceValue[sentence] 
+
+            average = int(sumValues / len(sentenceValue))   
+
+            summary = ''      
+
+            for sentence in sentences:               
+                if (sentence in sentenceValue) and (sentenceValue[sentence] > (1.2 * average)):                
+                    summary += " " + sentence                  
+            print(summary)
+
+            tempContent = summary
+
+
             tempOutput = tempOutput + result["metadata_spo_item_name"] + ";;" + str(round(result["@search.reranker_score"],2)) + ";;" + tempContent + ",,"
                         
         myRows = tempOutput.split(",,")      
