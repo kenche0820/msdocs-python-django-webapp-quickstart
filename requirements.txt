@@ -4,3 +4,4 @@ azure-search-documents --pre
 python-dotenv
 transformers
 sentencepiece
+protobuf
