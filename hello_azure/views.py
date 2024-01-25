@@ -1,6 +1,4 @@
-import torch   
-import transformers
-from transformers import AutoTokenizer, AutoModelWithLMHead
+from transformers import AutoModelWithLMHead, AutoTokenizer
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -9,6 +7,16 @@ import os
 
 import logging
 import sys
+
+tokenizer = AutoTokenizer.from_pretrained("mrm8488/t5-base-finetuned-summarize-news")
+model = AutoModelWithLMHead.from_pretrained("mrm8488/t5-base-finetuned-summarize-news")
+
+def summarize(text, max_length=150):
+    input_ids = tokenizer.encode(text, return_tensors="pt", add_special_tokens=True)
+    generated_ids = model.generate(input_ids=input_ids, num_beams=2, max_length=max_length,  repetition_penalty=2.5, length_penalty=1.0, early_stopping=True)
+    preds = [tokenizer.decode(g, skip_special_tokens=True, clean_up_tokenization_spaces=True) for g in generated_ids]
+    return preds[0]
+
 
 def index(request):
     logging.error('Request for index page received')
@@ -63,28 +71,18 @@ def hello(request):
                 myCaption = caption.text
 
 
-        tokenizer = AutoTokenizer.from_pretrained('t5-base')                        
-        model = AutoModelWithLMHead.from_pretrained('t5-base', return_dict=True)      
 
-        text = "This is a sentence. This is another sentence."
 
-        inputs = tokenizer.encode("summarize: " + text,                  
-        return_tensors='pt',              
-        max_length=512,             
-        truncation=True)     
 
-        summary_ids = model.generate(inputs, max_length=150, min_length=80, length_penalty=5., num_beams=2)  
 
-        summary = tokenizer.decode(summary_ids[0])                   
+
+
 
         tempOutput = "" 
         i = 0        
         for result in results:
-            #tempContent = result["content"]    
-            #tempContent = tempContent[0:1000]      
-
-            tempContent = summary
-
+            tempContent = result["content"]    
+            tempContent = tempContent[0:1000]                  
             tempOutput = tempOutput + result["metadata_spo_item_name"] + ";;" + str(round(result["@search.reranker_score"],2)) + ";;" + tempContent + ",,"
                         
         myRows = tempOutput.split(",,")      
