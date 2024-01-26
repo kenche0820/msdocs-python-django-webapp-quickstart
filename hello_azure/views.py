@@ -1,4 +1,11 @@
-from transformers import AutoModelWithLMHead, AutoTokenizer
+import bs4 as bs
+import urllib.request
+import re
+import nltk
+import heapq
+               
+from nltk.corpus import stopwords                       
+from nltk.tokenize import word_tokenize, sent_tokenize 
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -7,16 +14,6 @@ import os
 
 import logging
 import sys
-
-tokenizer = AutoTokenizer.from_pretrained("mrm8488/t5-base-finetuned-summarize-news")
-model = AutoModelWithLMHead.from_pretrained("mrm8488/t5-base-finetuned-summarize-news")
-
-def summarize(text, max_length=150):
-    input_ids = tokenizer.encode(text, return_tensors="pt", add_special_tokens=True)
-    generated_ids = model.generate(input_ids=input_ids, num_beams=2, max_length=max_length,  repetition_penalty=2.5, length_penalty=1.0, early_stopping=True)
-    preds = [tokenizer.decode(g, skip_special_tokens=True, clean_up_tokenization_spaces=True) for g in generated_ids]
-    return preds[0]
-
 
 def index(request):
     logging.error('Request for index page received')
@@ -70,19 +67,68 @@ def hello(request):
                 print(f"Caption: {caption.text}\n")
                 myCaption = caption.text
 
-
-
-
-
-
-
-
+        os.environ["NLTK_DATA"] = "C:\\Users\\kenneth.cheung\\AppData\\Roaming\\nltk_data"
 
         tempOutput = "" 
         i = 0        
         for result in results:
-            tempContent = result["content"]    
-            tempContent = tempContent[0:1000]                  
+            #tempContent = result["content"]    
+            #tempContent = tempContent[0:1000]  
+
+
+
+
+            #scraped_data = urllib.request.urlopen('https://en.wikipedia.org/wiki/Severe_acute_respiratory_syndrome_coronavirus_2')
+            #article = scraped_data.read()
+            article = result["content"]
+
+            parsed_article = bs.BeautifulSoup(article,'lxml')
+
+            paragraphs = parsed_article.find_all('p')
+
+            article_text = ""
+
+            for p in paragraphs:
+                article_text += p.text
+
+            # Removing Square Brackets and Extra Spaces
+            article_text = re.sub(r'\[[0-9]*\]', ' ', article_text)
+            article_text = re.sub(r'\s+', ' ', article_text)
+            # Removing special characters and digits
+            formatted_article_text = re.sub('[^a-zA-Z]', ' ', article_text )
+            formatted_article_text = re.sub(r'\s+', ' ', formatted_article_text)
+            sentence_list = nltk.sent_tokenize(article_text)
+            stopwords = nltk.corpus.stopwords.words('english')
+
+            word_frequencies = {}
+            for word in nltk.word_tokenize(formatted_article_text):
+                if word not in stopwords:
+                    if word not in word_frequencies.keys():
+                        word_frequencies[word] = 1
+                    else:
+                        word_frequencies[word] += 1
+                maximum_frequncy = max(word_frequencies.values())
+            for word in word_frequencies.keys():
+                word_frequencies[word] = (word_frequencies[word]/maximum_frequncy)
+                sentence_scores = {}
+            for sent in sentence_list:
+                for word in nltk.word_tokenize(sent.lower()):
+                    if word in word_frequencies.keys():
+                        if len(sent.split(' ')) < 30:
+                            if sent not in sentence_scores.keys():
+                                sentence_scores[sent] = word_frequencies[word]
+                            else:
+                                sentence_scores[sent] += word_frequencies[word]
+            
+            summary_sentences = heapq.nlargest(7, sentence_scores, key=sentence_scores.get)
+
+            summary = ' '.join(summary_sentences)
+            print(summary)
+
+
+            tempContent = summary
+
+
             tempOutput = tempOutput + result["metadata_spo_item_name"] + ";;" + str(round(result["@search.reranker_score"],2)) + ";;" + tempContent + ",,"
                         
         myRows = tempOutput.split(",,")      

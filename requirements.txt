@@ -2,10 +2,6 @@ Django
 whitenoise
 azure-search-documents --pre
 python-dotenv
-transformers
-sentencepiece
-protobuf
-torch 
-torchvision 
-torchaudio
-protoc
+nltk
+beautifulsoup4
+lxml
