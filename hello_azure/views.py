@@ -147,6 +147,7 @@ def hello(request):
                     myTable += "<TD>" + myCells[i] + "</TD>"
     
             myTable += "</TR>"    
+        myTable += "</TABLE>"             
 
 
         with codecs.open("hello_azure/templates/hello_azure/hello.html", 'w', encoding="utf-8") as outfile:     
